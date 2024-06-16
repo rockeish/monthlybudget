@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Budget Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .budget-for {
+            margin-bottom: 20px;
+        }
+
+        .user-info,
+        .couple-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .user-info label,
+        .couple-info label {
+            width: 48%;
+        }
+
+        .category {
+            margin-bottom: 30px;
+        }
+
+        .category h3 {
+            margin-bottom: 10px;
+        }
+
+        .subcategory {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .subcategory label {
+            width: 200px;
+        }
+
+        .subcategory input[type="number"] {
+            width: 100px;
+            margin-right: 10px;
+        }
+
+        .subcategory .total {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .calculate-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        .input-titles {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-titles div {
+            width: 48%;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Monthly Budget Planner</h1>
+    <form>
+        <div class="budget-for">
+            <label>
+                <input type="radio" name="budgetFor" value="individual" checked> Budget for Myself
+            </label>
+            <label>
+                <input type="radio" name="budgetFor" value="couple"> Budget for Myself and My Partner
+            </label>
+        </div>
+        <div class="user-info">
+            <label for="userName">Your Name:</label>
+            <input type="text" id="userName" required>
+        </div>
+        <div class="couple-info" style="display: none;">
+            <label for="partnerName">Partner's Name:</label>
+            <input type="text" id="partnerName">
+        </div>
+        <div class="input-titles" style="display: none;">
+            <div>Yourself</div>
+            <div>Partner</div>
+        </div>
+        <div class="category">
+            <h3>Housing</h3>
+            <div class="subcategory">
+                <label for="mortgage">Mortgage/Rent:</label>
+                <input type="number" id="mortgage" min="0" step="100" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="mortgagePartner" min="0" step="100" value="0">
+                </span>
+                <span class="total">$<span id="mortgageTotal">0</span></span>
+            </div>
+            <div class="subcategory">
+                <label for="propertyTax">Property Tax:</label>
+                <input type="number" id="propertyTax" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="propertyTaxPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="propertyTaxTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Utilities</h3>
+            <div class="subcategory">
+                <label for="electricity">Electricity:</label>
+                <input type="number" id="electricity" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="electricityPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="electricityTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Food</h3>
+            <div class="subcategory">
+                <label for="groceries">Groceries:</label>
+                <input type="number" id="groceries" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="groceriesPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="groceriesTotal">0</span></span>
+            </div>
+            <div class="subcategory">
+                <label for="diningOut">Dining Out:</label>
+                <input type="number" id="diningOut" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="diningOutPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="diningOutTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Transportation</h3>
+            <div class="subcategory">
+                <label for="carPayment">Car Payment:</label>
+                <input type="number" id="carPayment" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="carPaymentPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="carPaymentTotal">0</span></span>
+            </div>
+            <div class="subcategory">
+                <label for="gas">Gas:</label>
+                <input type="number" id="gas" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="gasPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="gasTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Healthcare</h3>
+            <div class="subcategory">
+                <label for="healthInsurance">Health Insurance:</label>
+                <input type="number" id="healthInsurance" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="healthInsurancePartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="healthInsuranceTotal">0</span></span>
+            </div>
+            <div class="subcategory">
+                <label for="medications">Medications:</label>
+                <input type="number" id="medications" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="medicationsPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="medicationsTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Personal and Family</h3>
+            <div class="subcategory">
+                <label for="clothing">Clothing:</label>
+                <input type="number" id="clothing" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="clothingPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="clothingTotal">0</span></span>
+            </div>
+            <div class="subcategory">
+                <label for="education">Education:</label>
+                <input type="number" id="education" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="educationPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="educationTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Savings and Investments</h3>
+            <div class="subcategory">
+                <label for="emergencyFund">Emergency Fund:</label>
+                <input type="number" id="emergencyFund" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="emergencyFundPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="emergencyFundTotal">0</span></span>
+            </div>
+            <div class="subcategory">
+                <label for="retirement">Retirement:</label>
+                <input type="number" id="retirement" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="retirementPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="retirementTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Entertainment</h3>
+            <div class="subcategory">
+                <label for="entertainment">Entertainment:</label>
+                <input type="number" id="entertainment" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="entertainmentPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="entertainmentTotal">0</span></span>
+            </div>
+        </div>
+        <div class="category">
+            <h3>Miscellaneous</h3>
+            <div class="subcategory">
+                <label for="gifts">Gifts:</label>
+                <input type="number" id="gifts" min="0" step="50" value="0" required>
+                <span class="couple-input" style="display: none;">
+                    <input type="number" id="giftsPartner" min="0" step="50" value="0">
+                </span>
+                <span class="total">$<span id="giftsTotal">0</span></span>
+            </div>
+        </div>
+        <button type="button" class="calculate-btn">Calculate</button>
+    </form>
+    <div class="result"></div>
+
+    <script>
+        const form = document.querySelector('form');
+        const budgetForRadios = document.querySelectorAll('input[name="budgetFor"]');
+        const coupleInfo = document.querySelector('.couple-info');
+        const coupleInputs = document.querySelectorAll('.couple-input');
+        const inputTitles = document.querySelector('.input-titles');
+        const userName = document.getElementById('userName');
+        const partnerName = document.getElementById('partnerName');
+        const calculateBtn = document.querySelector('.calculate-btn');
+        const result = document.querySelector('.result');
+
+        budgetForRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'couple') {
+                    coupleInfo.style.display = 'block';
+                    inputTitles.style.display = 'flex';
+                    coupleInputs.forEach(input => input.style.display = 'inline-block');
+                } else {
+                    coupleInfo.style.display = 'none';
+                    inputTitles.style.display = 'none';
+                    coupleInputs.forEach(input => input.style.display = 'none');
+                }
+                updateAllTotals();
+            });
+        });
+
+        function updateTotal(inputId, totalId) {
+            const input = document.getElementById(inputId);
+            const partnerInput = document.getElementById(inputId + 'Partner');
+            const total = document.getElementById(totalId);
+            const userValue = parseInt(input.value) || 0;
+            const partnerValue = partnerInput ? (parseInt(partnerInput.value) || 0) : 0;
+            total.textContent = userValue + partnerValue;
+        }
+
+        function updateAllTotals() {
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                const inputId = input.id;
+                const totalId = inputId + 'Total';
+                updateTotal(inputId, totalId);
+            });
+        }
+
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', function() {
+                updateAllTotals();
+            });
+        });
+
+        calculateBtn.addEventListener('click', function() {
+            const budgetFor = document.querySelector('input[name="budgetFor"]:checked').value;
+            const userContribution = {};
+            const partnerContribution = {};
+            let totalBudget = 0;
+            let totalUserContribution = 0;
+            let totalPartnerContribution = 0;
+
+            const categories = document.querySelectorAll('.category');
+            categories.forEach(category => {
+                const categoryName = category.querySelector('h3').textContent;
+                userContribution[categoryName] = {};
+                partnerContribution[categoryName] = {};
+
+                const subcategories = category.querySelectorAll('.subcategory');
+                subcategories.forEach(subcategory => {
+                    const subcategoryName = subcategory.querySelector('label').textContent;
+                    const userValue = parseInt(subcategory.querySelector('input[type="number"]').value) || 0;
+                    totalBudget += userValue;
+                    totalUserContribution += userValue;
+                    userContribution[categoryName][subcategoryName] = userValue;
+
+                    if (budgetFor === 'couple') {
+                        const partnerValue = parseInt(subcategory.querySelector('.couple-input input[type="number"]').value) || 0;
+                        totalBudget += partnerValue;
+                        totalPartnerContribution += partnerValue;
+                        partnerContribution[categoryName][subcategoryName] = partnerValue;
+                    }
+                });
+            });
+
+            let resultHtml = `
+                <h2>Budget Summary</h2>
+                <p>Total Monthly Budget: $${totalBudget}</p>
+            `;
+
+            if (budgetFor === 'couple') {
+                const userPercentage = ((totalUserContribution / totalBudget) * 100).toFixed(2);
+                const partnerPercentage = ((totalPartnerContribution / totalBudget) * 100).toFixed(2);
+                resultHtml += `
+                    <p>${userName.value}'s Contribution: $${totalUserContribution} (${userPercentage}%)</p>
+                    <p>${partnerName.value}'s Contribution: $${totalPartnerContribution} (${partnerPercentage}%)</p>
+                `;
+            }
+
+            let totalNecessaryExpenses = 0;
+            let totalDiscretionaryExpenses = 0;
+            let userNecessaryExpenses = 0;
+            let userDiscretionaryExpenses = 0;
+            let partnerNecessaryExpenses = 0;
+            let partnerDiscretionaryExpenses = 0;
+
+            for (const category in userContribution) {
+                for (const subcategory in userContribution[category]) {
+                    if (['Housing', 'Utilities', 'Food', 'Transportation', 'Healthcare'].includes(category)) {
+                        totalNecessaryExpenses += userContribution[category][subcategory];
+                        userNecessaryExpenses += userContribution[category][subcategory];
+                        if (budgetFor === 'couple') {
+                            totalNecessaryExpenses += partnerContribution[category][subcategory];
+                            partnerNecessaryExpenses += partnerContribution[category][subcategory];
+                        }
+                    } else {
+                        totalDiscretionaryExpenses += userContribution[category][subcategory];
+                        userDiscretionaryExpenses += userContribution[category][subcategory];
+                        if (budgetFor === 'couple') {
+                            totalDiscretionaryExpenses += partnerContribution[category][subcategory];
+                            partnerDiscretionaryExpenses += partnerContribution[category][subcategory];
+                        }
+                    }
+                }
+            }
+
+            resultHtml += `
+                <h3>Insights</h3>
+                <p>Necessary Expenses: $${totalNecessaryExpenses} (${((totalNecessaryExpenses / totalBudget) * 100).toFixed(2)}%)</p>
+                <p>Discretionary Expenses: $${totalDiscretionaryExpenses} (${((totalDiscretionaryExpenses / totalBudget) * 100).toFixed(2)}%)</p>
+            `;
+
+            if (budgetFor === 'couple') {
+                resultHtml += `
+                    <p>${userName.value}'s Necessary Expenses: $${userNecessaryExpenses} (${((userNecessaryExpenses / totalUserContribution) * 100).toFixed(2)}%)</p>
+                    <p>${userName.value}'s Discretionary Expenses: $${userDiscretionaryExpenses} (${((userDiscretionaryExpenses / totalUserContribution) * 100).toFixed(2)}%)</p>
+                    <p>${partnerName.value}'s Necessary Expenses: $${partnerNecessaryExpenses} (${((partnerNecessaryExpenses / totalPartnerContribution) * 100).toFixed(2)}%)</p>
+                    <p>${partnerName.value}'s Discretionary Expenses: $${partnerDiscretionaryExpenses} (${((partnerDiscretionaryExpenses / totalPartnerContribution) * 100).toFixed(2)}%)</p>
+                `;
+            } else {
+                resultHtml += `
+                    <p>Necessary Expenses: $${userNecessaryExpenses} (${((userNecessaryExpenses / totalUserContribution) * 100).toFixed(2)}%)</p>
+                    <p>Discretionary Expenses: $${userDiscretionaryExpenses} (${((userDiscretionaryExpenses / totalUserContribution) * 100).toFixed(2)}%)</p>
+                `;
+            }
+
+            if (totalNecessaryExpenses > totalDiscretionaryExpenses) {
+                resultHtml += '<p>Your budget allocation seems to prioritize necessary expenses, which is a good financial strategy.</p>';
+            } else {
+                resultHtml += '<p>Consider reviewing your discretionary expenses and see if there are areas where you can cut back to allocate more funds towards necessary expenses and savings.</p>';
+            }
+
+            if (budgetFor === 'couple') {
+                if (totalUserContribution > totalPartnerContribution) {
+                    resultHtml += `<p>${userName.value}, you are contributing a larger portion of the total budget. Have a discussion with ${partnerName.value} to ensure a fair distribution of expenses.</p>`;
+                } else if (totalPartnerContribution > totalUserContribution) {
+                    resultHtml += `<p>${partnerName.value}, you are contributing a larger portion of the total budget. Have a discussion with ${userName.value} to ensure a fair distribution of expenses.</p>`;
+                } else {
+                    resultHtml += '<p>You and your partner are contributing equally to the total budget, which demonstrates a balanced financial partnership.</p>';
+                }
+            }
+
+            result.innerHTML = resultHtml;
+        });
+    </script>
+</body>
+
+</html>
